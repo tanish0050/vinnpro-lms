@@ -1,5 +1,5 @@
 services:
-  # ─── Backend Flask API ───────────────────────────────────────────────────────
+  # ─── Backend Flask API (No external DB needed!) ───────────────────────────────
   - type: web
     name: vinnpro-backend
     env: python
@@ -10,14 +10,14 @@ services:
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     healthCheckPath: /
     envVars:
-      - key: MONGODB_URI
-        sync: false          # <-- SET THIS in Render Dashboard (MongoDB Atlas URI)
-      - key: JWT_SECRET_KEY
-        generateValue: true  # Auto-generated secure key
       - key: FLASK_ENV
         value: production
+      - key: JWT_SECRET_KEY
+        generateValue: true   # Auto-generated secure key
+      - key: RENDER
+        value: "true"         # Tells app to use /tmp for JSON storage
       - key: FRONTEND_URL
-        sync: false          # <-- SET THIS to your Render frontend URL
+        sync: false           # SET THIS: https://vinnpro-frontend.onrender.com
 
   # ─── Frontend React Static Site ──────────────────────────────────────────────
   - type: web
@@ -38,4 +38,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        sync: false          # <-- SET THIS to: https://vinnpro-backend.onrender.com/api
+        sync: false           # SET THIS: https://vinnpro-backend.onrender.com/api
