@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+backend/.env
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Build output - Keep out of git
+frontend/dist/
+frontend/.next/
+frontend/build/
+
+# Environment files (keep example files)
+*.env
+!.env.example
+!frontend/.env.example
+
+# Local DB file (used for offline dev)
+vinnpro_local_db.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Coverage
+htmlcov/
+.coverage
+coverage.xml
+
+# Uploads
+uploads/
+media/
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# Gemini AI agent files
+.agents/
+.gemini/

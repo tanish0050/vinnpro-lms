@@ -1,0 +1,41 @@
+services:
+  # ─── Backend Flask API ───────────────────────────────────────────────────────
+  - type: web
+    name: vinnpro-backend
+    env: python
+    region: singapore
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    healthCheckPath: /
+    envVars:
+      - key: MONGODB_URI
+        sync: false          # <-- SET THIS in Render Dashboard (MongoDB Atlas URI)
+      - key: JWT_SECRET_KEY
+        generateValue: true  # Auto-generated secure key
+      - key: FLASK_ENV
+        value: production
+      - key: FRONTEND_URL
+        sync: false          # <-- SET THIS to your Render frontend URL
+
+  # ─── Frontend React Static Site ──────────────────────────────────────────────
+  - type: web
+    name: vinnpro-frontend
+    env: static
+    region: singapore
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false          # <-- SET THIS to: https://vinnpro-backend.onrender.com/api
