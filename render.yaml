@@ -1,23 +1,24 @@
 services:
-  # ─── Backend Flask API (No external DB needed!) ───────────────────────────────
+  # ─── Backend Flask API ────────────────────────────────────────────────────────
   - type: web
     name: vinnpro-backend
     env: python
     region: singapore
     plan: free
-    rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     healthCheckPath: /
     envVars:
       - key: FLASK_ENV
         value: production
+      - key: PYTHON_VERSION
+        value: "3.11.0"
       - key: JWT_SECRET_KEY
-        generateValue: true   # Auto-generated secure key
+        generateValue: true
       - key: RENDER
-        value: "true"         # Tells app to use /tmp for JSON storage
+        value: "true"
       - key: FRONTEND_URL
-        sync: false           # SET THIS: https://vinnpro-frontend.onrender.com
+        sync: false   # Set to: https://vinnpro-frontend.onrender.com
 
   # ─── Frontend React Static Site ──────────────────────────────────────────────
   - type: web
@@ -38,4 +39,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        sync: false           # SET THIS: https://vinnpro-backend.onrender.com/api
+        sync: false   # Set to: https://vinnpro-backend.onrender.com/api
