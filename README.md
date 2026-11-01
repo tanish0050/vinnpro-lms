@@ -2,7 +2,7 @@
 
 > **A full-stack AI-powered Learning Management System** built with React, Flask & embedded JSON storage — no external database required!
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-6366f1?style=for-the-badge&logo=render)](https://vinnpro-frontend.onrender.com)
+[![Backend API](https://img.shields.io/badge/Backend%20API-Live%20✅-22c55e?style=for-the-badge&logo=render)](https://vinnpro-lms.onrender.com)
 [![GitHub](https://img.shields.io/badge/GitHub-tanish0050-181717?style=for-the-badge&logo=github)](https://github.com/tanish0050/vinnpro-lms)
 
 ---
